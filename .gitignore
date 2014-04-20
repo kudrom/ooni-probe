@@ -26,3 +26,5 @@ ooniprobe.resume
 .idea/
 *~
 .c9revisions
+.vagrant/
+*.bak

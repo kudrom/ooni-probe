@@ -420,6 +420,7 @@ class Report(object):
         """
         all_openned = defer.Deferred()
 
+        # XXX: Why is not used the ReportTracker?
         def are_all_openned():
             if len(self.reporters) == self._reporters_openned:
                 all_openned.callback(self._reporters_openned)
@@ -473,6 +474,7 @@ class Report(object):
             def report_failed(failure):
                 log.debug("Report Write Failure")
                 try:
+                    # XXX: It should be report_tracer.failed(reporter)
                     report_tracker.failedReporters.append(reporter)
                     self.failedWritingReport(failure, reporter)
                 except errors.NoMoreReporters, e:

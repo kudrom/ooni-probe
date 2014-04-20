@@ -66,6 +66,7 @@ class Director(object):
     def __init__(self):
         self.activeNetTests = []
 
+        # XXX Circular dependency?
         self.measurementManager = MeasurementManager()
         self.measurementManager.director = self
 

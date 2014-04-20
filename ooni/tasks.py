@@ -5,6 +5,7 @@ from ooni.settings import config
 from twisted.internet import defer, reactor
 
 class BaseTask(object):
+    # XXX: Why is timer defined here?
     _timer = None
 
     _running = None
