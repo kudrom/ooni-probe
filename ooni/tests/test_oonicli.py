@@ -50,7 +50,7 @@ advanced:
     reporting_timeout: 80
     reporting_retries: 3
     reporting_concurrency: 15
-    data_dir: /usr/share/ooni
+    data_dir: %s
     oonid_api_port: 8042
 tor:
     socks_port: 9050
@@ -60,6 +60,7 @@ tor:
 
 class TestRunDirector(ConfigTestCase):
     def setUp(self):
+        super(TestRunDirector, self).setUp()
         if not is_internet_connected():
             self.skipTest("You must be connected to the internet to run this test")
         try:
@@ -168,11 +169,12 @@ class TestRunDirector(ConfigTestCase):
 
     @defer.inlineCallbacks
     def test_sniffing_activated(self):
+        config_text = config_includepcap % config.data_directory
         filename = os.path.abspath('test_report.pcap')
         self.filenames.append(filename)
         conf_file = os.path.abspath('fake_config.conf')
         with open(conf_file, 'w') as cfg:
-            cfg.writelines(config_includepcap)
+            cfg.writelines(config_text)
         self.filenames.append(conf_file)
 
         def verify_function(_):
